@@ -10,27 +10,39 @@ if (!process.argv [2]) {
 }
 const workerName = process.argv [2];
 
-if (!fs.existsSync("./src")){
-    fs.mkdirSync("./src");
+let checkDir = function (dir) { if (!fs.existsSync(dir)) fs.mkdirSync(dir); };
+checkDir ("./src");
+checkDir ("./src/"+workerName);
+checkDir ("./build");
+
+let checkCopy = function (file, path) {
+   if (!fs.existsSync(file))
+    fs.copyFileSync (__dirname + "/../"+file, "./"+(path?path+"/":"")file);
+};
+checkCopy ("options.json")
+checkCopy ("tsconfig.json")
+
+const serviceFile = "./build/workerService.ts";
+if (!fs.existsSync(serviceFile)) {
+  fs.copyFileSync (__dirname + "/../src/workerService.ts", serviceFile);
 }
-if (!fs.existsSync("./src/"+workerName)){
-    fs.mkdirSync("./src/"+workerName);
-}
-const fileName = "./src/"+workerName+"/index.ts";
-if (!fs.existsSync(fileName)) {
-  const template = handlebars.compile(fs.readFileSync(__dirname+"/../worker.tpl").toString(), { strict: true, noEscape: true });
-  const res = template({ name : workerName });
-  write (fileName, res).then (() => {
-    console.log (arguments);
+
+const indexTs = "./index.ts";
+if (!fs.existsSync(indexTs)) {
+  let content = `export * from './build/definitions';
+export { WorkerService } from './workerService';`;
+  write (indexTs, content).then (() => {
+    console.log ("Files created.");
   });
 }
 
-const optionsFile = "./options.json";
-if (!fs.existsSync(optionsFile)) {
-  fs.copyFileSync (__dirname + "/../options.json", optionsFile);
+const createFile (source, target, data) {
+  const template = handlebars.compile(fs.readFileSync(source).toString(), { strict: true, noEscape: true });
+  const res = template(data);
+  write (target, res).then (() => {
+  });
 }
 
-const tsFile = "./tsconfig.json";
-if (!fs.existsSync(tsFile)) {
-  fs.copyFileSync (__dirname + "/../tsconfig.json", tsFile);
-}
+const fileName = "./src/"+workerName+"/index.ts";
+if (!fs.existsSync(fileName))
+  createFile (__dirname+"/../worker.tpl", fileName, { name : workerName })

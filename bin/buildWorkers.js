@@ -78,8 +78,9 @@ new Promise ((resolve, reject) => {
   next (0);
 }).then (() => {
   new Promise ((resolve, reject) => {
-    fileContent = 'import { WorkerClass, WorkerService } from "./workerService";\n' + fileContent;
-    fs.writeFile(options.projectPath+"/src/app/"+options.definitionFile, fileContent, function(err) {
+    fileContent = 'import { WorkerServiceClass, WorkerService } from "ng-webworker-helper";\n' + fileContent;
+    //fs.writeFile(options.projectPath+"/src/app/"+options.definitionFile, fileContent, function(err) {
+    fs.writeFile(process.env.PWD+"/build/definitions.ts", fileContent, function(err) {
         if(err) reject (err);
         workers.forEach (name => {
           fs.rename ("./.build/"+name+".js", options.projectPath + "/src/assets/"+name+".js", err => {
@@ -88,7 +89,11 @@ new Promise ((resolve, reject) => {
           })
         })
     })
-  }).then (() => { console.log ("Files installed.");process.exit (0); })
+  }).then (() => {
+    const packageJson = "./build/package.json";
+    createFile (__dirname+"/../package.json.tpl", packageJson, { name : workerName })
+    console.log ("Files installed.");process.exit (0);
+   })
   .catch ((err) => { console.error (err);process.exit (1); });
 }).catch ((e) => {
   if (e.cmd) {
