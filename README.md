@@ -43,8 +43,7 @@ Once you add some public methods inside your worker class, you can launch
 ```
 ./node_modules/.bin/buildWorkers
 ```
-Il will create the workers in src/assets, the definition file in src/app and
-the worker_name.service.ts in src/app
+Il will create the workers in src/assets, the definition file in src/app
 
 And now create a service named worker_name. In that file, import definitions
 ```
