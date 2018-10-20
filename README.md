@@ -48,6 +48,7 @@ the worker_name class in which you develop your worker.
 It will also create tsconfig.json and options.json in which you have to set your
 angular project path.
 ```
+// options.json
 {
   "projectPath": "YOUR ANGULAR PROJECT PATH",
   "workersPath": "./src/",
@@ -62,13 +63,19 @@ To make easy change on typescript files you can use this command in a terminal
 cd WORKERS_PATH
 tsc -w -p .
 ```
-Once you add some public methods inside your worker class, you can launch
+Once you have added some public methods inside your worker class, you can launch
 ```
 ./node_modules/.bin/buildWorkers
 ```
-Il will create the workers in src/assets, the definition file in src/app
+Il will create the workers in src/assets and the definition file in src/app of 
+your Angular project.
 
-And now create a service named worker_name. In that file, import definitions
+And now create a service named worker_name.
+```
+ng generate service worker_name
+
+```
+In that file, import definitions
 ```
 import { WorkerNameWorker } from './webworker.definitions.ts';
 
