@@ -2,6 +2,7 @@
 "use strict";
 const fs = require('fs');
 const Generator = require("../src/generator").Generator;
+const Utils = require ("../src/utils")
 const { spawn } = require('child_process');
 const options = require (process.env.PWD + "/options.json");
 const path = require ("path");
@@ -91,8 +92,8 @@ new Promise ((resolve, reject) => {
     })
   }).then (() => {
     const packageJson = "./build/package.json";
-    createFile (__dirname+"/../package.json.tpl", packageJson, { name : workerName })
-    console.log ("Files installed.");process.exit (0);
+    let res = Utils.template (__dirname+"/../package.json.tpl", { name : workerName });
+    Utils.write (packageJson).then (() => { console.log ("Files installed.");process.exit (0); });
    })
   .catch ((err) => { console.error (err);process.exit (1); });
 }).catch ((e) => {
