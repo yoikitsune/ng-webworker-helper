@@ -4,7 +4,7 @@
 
 The goal of of this project is to provide a helper to manage web workers through
 an angular service. The web worker is created with browserify, out of angular. So
-you can provides npm packages that are not compatible with angular and communicate
+you can provide npm packages that are not compatible with angular and communicate
 with them through web workers.
 
 ## Principle
