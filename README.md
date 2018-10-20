@@ -2,23 +2,24 @@
 
 ## Purpose
 
-The goal of of this project is to provide a helper to manage webworker inside an Angular project.
+The goal of of this project is to provide a helper to manage webworker through
+an angular service.
 Briefly, you develop a worker with an object pattern which mean that you create public methods
-in the worker class and the build command add automatically all the definitions inside
-your Angular project.
+in the worker class and the build command make them accessible in your service.
 
 ## Requirements
 This package needs a developement environment with TypeScript.
 
 Install TypeScript globally if necessary
 
-```bash
+```
 npm install -g typescript
 ```
+I'm using and testing it with Angular6
 
 ## Installation
 Create a new folder for your web workers and inside it make this commands
-```bash
+```
 npm init --yes
 npm install --save @types/es6-promise @types/node
 ```
@@ -40,7 +41,7 @@ angular project path.
 ## Usage
 
 To make easy change on typescript files you can use this command
- ```
+```
 tsc -w -p.
 ```
 Once you add some public methods inside your worker class, you can launch
