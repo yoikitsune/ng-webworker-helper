@@ -20,8 +20,12 @@ npm install -g typescript
 Create a new folder for your web workers and inside it make this commands
 ```bash
 npm init --yes
-npm install --save ng-webworker-helper @types/es6-promise @types/node
-git
+npm install --save @types/es6-promise @types/node
+```
+This package is not on npm so you have to clone it and install locally
+```
+git clone https://github.com/yoikitsune/ng-webworker-helper.git
+npm install --save ./ng-webworker-helper
 ```
 Then create your worker with this command
 ```bash
