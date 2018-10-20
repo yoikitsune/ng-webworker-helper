@@ -35,36 +35,41 @@ function exec (cmd, args) {
   });
 }
 
-const sourceDir = process.env.PWD + '/' + options.workersPath;
+const sourceDir = path.resolve (process.env.PWD, options.workersPath);
 let fileContent = "";
 let workers = [];
 new Promise ((resolve, reject) => {
   const folders = fs.readdirSync (sourceDir);
   const next = function (i) {
-    if (i < folders.length ) {
-      let dir = folders[i];
-      workers.push (dir);
-      process.stdout.write ("Creating "+dir+"....");
-      let args = [
-        path.resolve (sourceDir, dir, 'index.js'),
-        "-o",
-        "./.build/"+dir+".js",
-        "-d"
-      ];
-      exec ('browserify', args)
-        .then (() => {
-          exec (__dirname + "/generate.js", [path.resolve (sourceDir, dir, "index.ts")])
-            .then (r => {
-              fileContent += r;
-              process.stdout.write ("done.\n");
-              next (i+1);
-            })
-            .catch (e => {
-              process.stdout.write ("error.\n");reject (e);
-            });
-        }).catch (e => {
-          process.stdout.write ("error.\n");reject (e);
-        });
+    if (i < folders.length) {
+      let workerName = folders[i];
+      let workerPath = path.resolve (sourceDir, workerName);
+      if (fs.lstatSync (workerPath).isDirectory ()) {
+        workers.push (workerName);
+        process.stdout.write ("Creating "+workerName+"....");
+        let args = [
+          path.resolve (workerPath, 'index.js'),
+          "-o",
+          "./.build/"+workerName+".js",
+          "-d"
+        ];
+        exec ('browserify', args)
+          .then (() => {
+            exec (__dirname + "/generate.js", [path.resolve (workerPath, "index.ts")])
+              .then (r => {
+                fileContent += r;
+                process.stdout.write ("done.\n");
+                next (i+1);
+              })
+              .catch (e => {
+                process.stdout.write ("error.\n");reject (e);
+              });
+          }).catch (e => {
+            process.stdout.write ("error.\n");reject (e);
+          });
+      }
+      else
+        next (i+1);
     }
     else {
       resolve ();
