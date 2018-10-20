@@ -17,8 +17,8 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "generate": "./bin/generate.js",
-    "build": "./bin/build.js"
+    "addWorker": "./bin/addWorker.js",
+    "buildWorkers": "./bin/buildWorkers.js"
   },
   "directories": {
     "doc": "docs",

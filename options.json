@@ -1,0 +1,5 @@
+{
+  "projectPath": false,
+  "workersPath": "./src/",
+  "definitionFile" : "workerService.definitions.ts"
+}
