@@ -67,7 +67,7 @@ Once you have added some public methods inside your worker class, you can launch
 ```
 ./node_modules/.bin/buildWorkers
 ```
-Il will create the workers in src/assets and the definition file in src/app of 
+Il will create the workers in src/assets and the definition file in src/app of
 your Angular project.
 
 And now create a service named worker_name.
@@ -84,6 +84,7 @@ and extends service
 ```
 export class WorkerNameService extends WorkerNameWorker {}
 ```
+you also need to copy workerService.ts to src in your angular projectPath
 
 and all the public methods inside the web worker are available in angular through
 the service.
