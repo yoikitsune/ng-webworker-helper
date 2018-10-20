@@ -1,4 +1,4 @@
-# ng-worker-helper
+# ng-webworker-helper
 
 ## Purpose
 
