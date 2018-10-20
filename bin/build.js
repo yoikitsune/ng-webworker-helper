@@ -95,24 +95,3 @@ new Promise ((resolve, reject) => {
   }
   process.exit (1);
 });
-/*
-set -e
-moduleDir
-sourceDir=$(realpath "./src");
-targetDir=$(realpath "../chess/");
-echo '' > ./dist/$defFileName
-for f in $sourceDir/*; do
-	name=$(basename $f);
-	echo -n "Create $name...";
-	browserify $sourceDir/$name/index.js -o ./dist/$name.js -d
-	./node_modules/generate.js $sourceDir/$name/index.ts >> ./dist/$defFileName
-	echo "done.";
-done
-
-definitionsPath="$targetDir/src/app"
-mv ./dist/$defFileName $definitionsPath/
-
-webWorkerPath="$targetDir/src/assets"
-mv ./dist/* $webWorkerPath
-
-echo "Done."*/
