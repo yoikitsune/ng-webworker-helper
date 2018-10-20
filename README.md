@@ -42,7 +42,7 @@ angular project path.
 
 To make easy change on typescript files you can use this command
 ```
-tsc -w -p.
+tsc -w -p .
 ```
 Once you add some public methods inside your worker class, you can launch
 ```
