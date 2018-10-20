@@ -1,0 +1,27 @@
+{
+  "name": "ng-webworker-helper",
+  "version": "1.0.0",
+  "description": "Helper to use websocket as service with a class model",
+  "main": "index.js",
+  "dependencies": {
+    "@types/es6-promise": "^3.3.0",
+    "@types/node": "^10.12.0",
+    "browserify": "^16.2.3",
+    "handlebars": "^4.0.12",
+    "typescript": "^3.1.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "generate": "./bin/generate.js",
+    "build": "./bin/build.js"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  }
+}
